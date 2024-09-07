@@ -1,0 +1,10 @@
+.App {
+  --clr-bcg: #fff;
+  --clr-font: #333;
+  --clr-primary: #645cff;
+}
+
+.dark {
+  --clr-bcg: #333;
+  --clr-font: #fff;
+ 

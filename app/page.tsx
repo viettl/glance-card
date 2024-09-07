@@ -1,101 +1,53 @@
-import Image from "next/image";
+'use client'
+
+import { useEffect } from 'react'
+import styles from './page.module.css'
+import Icon from './components/Icon'
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const grid = document.querySelector(`.${styles.grid}`) as HTMLElement
+      if (grid) {
+        grid.style.setProperty('--x', `${e.clientX}px`)
+        grid.style.setProperty('--y', `${e.clientY}px`)
+      }
+    }
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    document.addEventListener('mousemove', handleMouseMove)
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
+
+  return (
+    <main className={styles.container}>
+      <div className={styles.main}>
+        <h1>Lorem Ipsum Dolor Sit Amet</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur interdum.</p>
+      </div>
+
+      <div className={styles.gridContainer}>
+        <div className={styles.grid}>
+          {[
+            { title: 'Lorem Ipsum', icon: 'shield-alt', message: 'Lorem: Dolor sit amet.' },
+            { title: 'Consectetur Adipiscing', icon: 'user-shield', message: 'Lorem: Elit nullam euismod.' },
+            { title: 'Nulla Facilisi', icon: 'wifi', message: 'Lorem: Maecenas sed diam.' },
+            { title: 'Vestibulum Ante', icon: 'window-maximize', message: 'Lorem: Ipsum primis in faucibus.' },
+            { title: 'Orci Luctus', icon: 'laptop', message: 'Lorem: Et ultrices posuere cubilia.' },
+            { title: 'Curae Mauris', icon: 'heartbeat', message: 'Lorem: Viverra accumsan in nisl.' },
+            { title: 'Nisi Porta', icon: 'user-friends', message: 'Lorem: Lorem mollis aliquam ut.' },
+            { title: 'Porttitor Lacus', icon: 'clock', message: 'Lorem: Luctus accumsan tortor posuere.' },
+          ].map((card, index) => (
+            <div key={index} className={styles.card}>
+              <Icon name={card.icon} />
+              <h2>{card.title}</h2>
+              <p>{card.message}</p>
+            </div>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      </div>
+    </main>
+  )
 }
